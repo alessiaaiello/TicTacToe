@@ -15,6 +15,9 @@ gradle-wrapper.jar
 app/build/
 */build/
 
+# Keep release APKs
+!releases/*.apk
+
 # Local files
 local.properties
 .DS_Store
