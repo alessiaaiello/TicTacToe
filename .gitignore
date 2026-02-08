@@ -1,0 +1,38 @@
+# Gradle
+.gradle/
+build/
+*.gradle.lock
+gradle-wrapper.jar
+
+# Android Studio
+.idea/
+*.iml
+*.apk
+*.ap_
+*.dex
+
+# Build artifacts
+app/build/
+*/build/
+
+# Local files
+local.properties
+.DS_Store
+
+# Keystore files
+*.jks
+*.keystore
+
+# Log files
+*.log
+
+# IDE
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+
+# OS files
+Thumbs.db
+.env

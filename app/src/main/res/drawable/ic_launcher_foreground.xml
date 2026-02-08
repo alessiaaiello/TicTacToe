@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Seascape gradient background (same as game) -->
+    <!-- Top orange section -->
+    <path
+        android:fillColor="#FFA500"
+        android:pathData="M0,0 L108,0 L108,36 L0,36 Z" />
+    
+    <!-- Middle sky blue section -->
+    <path
+        android:fillColor="#87CEEB"
+        android:pathData="M0,36 L108,36 L108,72 L0,72 Z" />
+    
+    <!-- Bottom ocean blue section -->
+    <path
+        android:fillColor="#006994"
+        android:pathData="M0,72 L108,72 L108,108 L0,108 Z" />
+
+    <!-- Game board grid lines in white (button color) -->
+    <!-- Vertical line 1 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M36,15 L36,93" />
+    
+    <!-- Vertical line 2 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M72,15 L72,93" />
+
+    <!-- Horizontal line 1 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M15,36 L93,36" />
+    
+    <!-- Horizontal line 2 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M15,72 L93,72" />
+
+    <!-- Game pieces -->
+    <!-- Top-left: X in ocean blue -->
+    <path
+        android:strokeColor="#006994"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M22,22 L30,30" />
+    <path
+        android:strokeColor="#006994"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M30,22 L22,30" />
+
+    <!-- Top-right: O in orange -->
+    <path
+        android:strokeColor="#FF8C42"
+        android:strokeWidth="3"
+        android:pathData="M78,22 Q84,22 84,28 Q84,34 78,34 Q72,34 72,28 Q72,22 78,22 Z" />
+
+    <!-- Center: X in ocean blue -->
+    <path
+        android:strokeColor="#006994"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M54,54 L62,62" />
+    <path
+        android:strokeColor="#006994"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M62,54 L54,62" />
+
+    <!-- Bottom-left: O in orange -->
+    <path
+        android:strokeColor="#FF8C42"
+        android:strokeWidth="3"
+        android:pathData="M26,80 Q32,80 32,86 Q32,92 26,92 Q20,92 20,86 Q20,80 26,80 Z" />
+
+    <!-- Bottom-right: O in orange -->
+    <path
+        android:strokeColor="#FF8C42"
+        android:strokeWidth="3"
+        android:pathData="M82,80 Q88,80 88,86 Q88,92 82,92 Q76,92 76,86 Q76,80 82,80 Z" />
+
+</vector>
