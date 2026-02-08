@@ -2648,6 +2648,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
+drawable loading_circle
 drawable m3_appbar_background
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -2950,6 +2951,7 @@ id line3
 id linear
 id listMode
 id list_item
+id loadingAnimation
 id m3_side_sheet
 id marquee
 id masked
@@ -3301,6 +3303,7 @@ layout abc_tooltip
 layout activity_difficulty
 layout activity_home
 layout activity_main
+layout activity_splash
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3381,6 +3384,7 @@ layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
+raw startup_chime
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description

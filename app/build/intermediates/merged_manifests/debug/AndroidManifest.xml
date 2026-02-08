@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         <activity
-            android:name="com.example.tictactoe.HomeActivity"
+            android:name="com.example.tictactoe.SplashActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.tictactoe.HomeActivity"
+            android:exported="true" />
         <activity
             android:name="com.example.tictactoe.DifficultyActivity"
             android:exported="true" />

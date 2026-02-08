@@ -4,6 +4,10 @@
         "source": "com.example.tictactoe.app-main-31:/drawable/gradient_background.xml"
     },
     {
+        "merged": "com.example.tictactoe.app-merged_res-29:/layout_activity_splash.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_splash.xml"
+    },
+    {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-hdpi_ic_launcher_round.png.flat",
         "source": "com.example.tictactoe.app-main-31:/mipmap-hdpi/ic_launcher_round.png"
     },
@@ -50,6 +54,14 @@
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-mdpi_ic_launcher_round.png.flat",
         "source": "com.example.tictactoe.app-main-31:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/drawable_loading_circle.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/drawable/loading_circle.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/raw_startup_chime.wav.flat",
+        "source": "com.example.tictactoe.app-main-31:/raw/startup_chime.wav"
     },
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xxxhdpi_ic_launcher.png.flat",

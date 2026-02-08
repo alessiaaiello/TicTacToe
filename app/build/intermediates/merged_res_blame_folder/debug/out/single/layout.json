@@ -4,6 +4,10 @@
         "source": "com.example.tictactoe.app-main-31:/layout/activity_difficulty.xml"
     },
     {
+        "merged": "com.example.tictactoe.app-mergeDebugResources-28:/layout/activity_splash.xml",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_splash.xml"
+    },
+    {
         "merged": "com.example.tictactoe.app-mergeDebugResources-28:/layout/activity_home.xml",
         "source": "com.example.tictactoe.app-main-31:/layout/activity_home.xml"
     },
