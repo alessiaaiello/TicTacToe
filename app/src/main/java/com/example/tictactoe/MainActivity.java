@@ -2,6 +2,7 @@ package com.example.tictactoe;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.media.SoundPool;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tictactoe.databinding.ActivityMainBinding;
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private String difficulty = "hard"; // "easy", "medium", or "hard"
     private Random random = new Random();
     private Handler handler = new Handler();
+    private SoundPool soundPool;
+    private int clickSoundId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
             difficulty = "hard";
         }
 
+        // Initialize sound pool for button clicks
+        soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        clickSoundId = soundPool.load(this, R.raw.button_click, 1);
+
         buttons = new Button[]{
             binding.btn0, binding.btn1, binding.btn2,
             binding.btn3, binding.btn4, binding.btn5,
@@ -46,9 +53,18 @@ public class MainActivity extends AppCompatActivity {
             buttons[i].setOnClickListener(v -> onCellClicked(finalI));
         }
 
-        binding.resetButton.setOnClickListener(v -> resetGame());
-        binding.resetButtonOverlay.setOnClickListener(v -> resetGame());
-        binding.backButton.setOnClickListener(v -> finish());
+        binding.resetButton.setOnClickListener(v -> {
+            playClickSound();
+            resetGame();
+        });
+        binding.resetButtonOverlay.setOnClickListener(v -> {
+            playClickSound();
+            resetGame();
+        });
+        binding.backButton.setOnClickListener(v -> {
+            playClickSound();
+            finish();
+        });
         updateStatus();
     }
 
@@ -285,6 +301,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void playClickSound() {
+        if (soundPool != null) {
+            soundPool.play(clickSoundId, 0.5f, 0.5f, 1, 0, 1.0f);
+        }
+    }
+
     private void resetGame() {
         binding.resetButtonContainer.setVisibility(android.view.View.GONE);
         for (int i = 0; i < board.length; i++) {
@@ -313,5 +335,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return 0;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+        }
+        super.onDestroy();
     }
 }

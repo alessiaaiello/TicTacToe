@@ -32,6 +32,10 @@
         "source": "com.example.tictactoe.app-main-31:/mipmap-hdpi/ic_launcher.png"
     },
     {
+        "merged": "com.example.tictactoe.app-merged_res-29:/raw_button_click.wav.flat",
+        "source": "com.example.tictactoe.app-main-31:/raw/button_click.wav"
+    },
+    {
         "merged": "com.example.tictactoe.app-merged_res-29:/drawable_main_seascape_background.xml.flat",
         "source": "com.example.tictactoe.app-main-31:/drawable/main_seascape_background.xml"
     },
