@@ -1,19 +1,15 @@
 [
     {
-        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "com.example.tictactoe.app-main-31:/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "com.example.tictactoe.app-merged_res-29:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.example.tictactoe.app-main-31:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/mipmap-anydpi-v33/ic_launcher.xml"
     },
     {
-        "merged": "/Users/alessiavalentinaaiello/.gradle/daemon/7.5.1/com.example.tictactoe.app-merged_res-29:/layout_activity_main.xml.flat",
-        "source": "/Users/alessiavalentinaaiello/.gradle/daemon/7.5.1/com.example.tictactoe.app-main-31:/layout/activity_main.xml"
-    },
-    {
-        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.example.tictactoe.app-main-31:/mipmap-hdpi/ic_launcher.png"
+        "merged": "com.example.tictactoe.app-merged_res-29:/drawable_gradient_background.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/drawable/gradient_background.xml"
     },
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-mdpi_ic_launcher_round.png.flat",
@@ -42,5 +38,57 @@
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-mdpi_ic_launcher.png.flat",
         "source": "com.example.tictactoe.app-main-31:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.example.tictactoe.app-main-31:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.example.tictactoe.app-main-31:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/font_poppins_regular.ttf.flat",
+        "source": "com.example.tictactoe.app-main-31:/font/poppins_regular.ttf"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/layout_activity_main.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.example.tictactoe.app-main-31:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/drawable_main_seascape_background.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/drawable/main_seascape_background.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/drawable_seascape_background.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/drawable/seascape_background.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/font_poppins_bold.ttf.flat",
+        "source": "com.example.tictactoe.app-main-31:/font/poppins_bold.ttf"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/layout_activity_home.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_home.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/drawable_button_style.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/drawable/button_style.xml"
     }
 ]

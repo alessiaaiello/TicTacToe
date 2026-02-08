@@ -1,9 +1,11 @@
 package com.example.tictactoe;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tictactoe.databinding.ActivityMainBinding;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,12 +14,20 @@ public class MainActivity extends AppCompatActivity {
     private int[] board = new int[9];
     private boolean xTurn = true;
     private boolean gameOver = false;
+    private String gameMode = "friend"; // "friend" or "computer"
+    private Random random = new Random();
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        gameMode = getIntent().getStringExtra("gameMode");
+        if (gameMode == null) {
+            gameMode = "friend";
+        }
 
         buttons = new Button[]{
             binding.btn0, binding.btn1, binding.btn2,
@@ -39,47 +49,122 @@ public class MainActivity extends AppCompatActivity {
         if (gameOver) return;
         if (board[index] != 0) return;
 
-        board[index] = xTurn ? 1 : 2;
-        buttons[index].setText(xTurn ? "★" : "✿");
+        // Player move (always ★)
+        board[index] = 1;
+        buttons[index].setText("★");
 
         int winner = checkWinner();
         if (winner != 0) {
-            gameOver = true;
-            String winnerMessage = winner == 1 ? "★ Wins!" : "✿ Wins!";
-            binding.statusText.setText(winnerMessage);
-            binding.winnerText.setText(winnerMessage);
-            binding.winnerText.setVisibility(android.view.View.VISIBLE);
-            binding.confettiView.setVisibility(android.view.View.VISIBLE);
-            binding.confettiView.startConfetti();
-            binding.resetButtonContainer.setVisibility(android.view.View.VISIBLE);
+            endGame("★ Wins!");
             return;
         }
 
-        boolean isFull = true;
-        for (int i = 0; i < board.length; i++) {
+        if (isBoardFull()) {
+            endGame("Draw!");
+            return;
+        }
+
+        if (gameMode.equals("computer")) {
+            // Computer's turn
+            handler.postDelayed(this::computerMove, 500);
+        } else {
+            // Friend's turn
+            xTurn = !xTurn;
+            updateStatus();
+        }
+    }
+
+    private void computerMove() {
+        // Find best move using minimax algorithm
+        int bestScore = Integer.MIN_VALUE;
+        int bestMove = -1;
+
+        for (int i = 0; i < 9; i++) {
             if (board[i] == 0) {
-                isFull = false;
-                break;
+                board[i] = 2;
+                int score = minimax(0, false);
+                board[i] = 0;
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
             }
         }
 
-        if (isFull) {
-            gameOver = true;
-            binding.statusText.setText("Draw");
-            binding.winnerText.setText("Draw!");
-            binding.winnerText.setVisibility(android.view.View.VISIBLE);
-            binding.confettiView.setVisibility(android.view.View.VISIBLE);
-            binding.confettiView.startConfetti();
-            binding.resetButtonContainer.setVisibility(android.view.View.VISIBLE);
-            return;
-        }
+        if (bestMove != -1) {
+            board[bestMove] = 2;
+            buttons[bestMove].setText("✿");
 
-        xTurn = !xTurn;
+            int winner = checkWinner();
+            if (winner != 0) {
+                endGame("✿ Wins!");
+                return;
+            }
+
+            if (isBoardFull()) {
+                endGame("Draw!");
+                return;
+            }
+        }
         updateStatus();
     }
 
+    private int minimax(int depth, boolean isMaximizing) {
+        int winner = checkWinner();
+        if (winner == 2) return 10 - depth; // Computer wins
+        if (winner == 1) return depth - 10; // Player wins
+        if (isBoardFull()) return 0; // Draw
+
+        if (isMaximizing) {
+            int bestScore = Integer.MIN_VALUE;
+            for (int i = 0; i < 9; i++) {
+                if (board[i] == 0) {
+                    board[i] = 2;
+                    int score = minimax(depth + 1, false);
+                    board[i] = 0;
+                    bestScore = Math.max(score, bestScore);
+                }
+            }
+            return bestScore;
+        } else {
+            int bestScore = Integer.MAX_VALUE;
+            for (int i = 0; i < 9; i++) {
+                if (board[i] == 0) {
+                    board[i] = 1;
+                    int score = minimax(depth + 1, true);
+                    board[i] = 0;
+                    bestScore = Math.min(score, bestScore);
+                }
+            }
+            return bestScore;
+        }
+    }
+
+    private void endGame(String message) {
+        gameOver = true;
+        binding.statusText.setText(message);
+        binding.winnerText.setText(message);
+        binding.winnerText.setVisibility(android.view.View.VISIBLE);
+        binding.confettiView.setVisibility(android.view.View.VISIBLE);
+        binding.confettiView.startConfetti();
+        binding.resetButtonContainer.setVisibility(android.view.View.VISIBLE);
+    }
+
+    private boolean isBoardFull() {
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void updateStatus() {
-        binding.statusText.setText(xTurn ? "★'s turn" : "✿'s turn");
+        if (gameMode.equals("computer")) {
+            binding.statusText.setText(xTurn ? "Your turn (★)" : "Computer (✿)");
+        } else {
+            binding.statusText.setText(xTurn ? "★'s turn" : "✿'s turn");
+        }
     }
 
     private void resetGame() {

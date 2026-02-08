@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/main_seascape_background"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tic Tac Toe"
+        android:textSize="48sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:layout_marginBottom="60dp"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
+
+    <Button
+        android:id="@+id/friendButton"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:text="Play with Friend"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:background="#FF8C42"
+        android:layout_marginBottom="30dp"
+        android:elevation="8dp" />
+
+    <Button
+        android:id="@+id/computerButton"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:text="Play vs Computer"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:background="#FF8C42"
+        android:elevation="8dp" />
+
+</LinearLayout>

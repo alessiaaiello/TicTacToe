@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         <activity
-            android:name="com.example.tictactoe.MainActivity"
+            android:name="com.example.tictactoe.HomeActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.tictactoe.MainActivity"
+            android:exported="true" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

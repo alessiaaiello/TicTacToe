@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.example.tictactoe.ConfettiView;
 import com.example.tictactoe.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -19,7 +20,7 @@ import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final FrameLayout rootView;
 
   @NonNull
   public final Button btn0;
@@ -49,18 +50,32 @@ public final class ActivityMainBinding implements ViewBinding {
   public final Button btn8;
 
   @NonNull
+  public final ConfettiView confettiView;
+
+  @NonNull
   public final GridLayout grid;
 
   @NonNull
   public final Button resetButton;
 
   @NonNull
+  public final FrameLayout resetButtonContainer;
+
+  @NonNull
+  public final Button resetButtonOverlay;
+
+  @NonNull
   public final TextView statusText;
 
-  private ActivityMainBinding(@NonNull LinearLayout rootView, @NonNull Button btn0,
+  @NonNull
+  public final TextView winnerText;
+
+  private ActivityMainBinding(@NonNull FrameLayout rootView, @NonNull Button btn0,
       @NonNull Button btn1, @NonNull Button btn2, @NonNull Button btn3, @NonNull Button btn4,
       @NonNull Button btn5, @NonNull Button btn6, @NonNull Button btn7, @NonNull Button btn8,
-      @NonNull GridLayout grid, @NonNull Button resetButton, @NonNull TextView statusText) {
+      @NonNull ConfettiView confettiView, @NonNull GridLayout grid, @NonNull Button resetButton,
+      @NonNull FrameLayout resetButtonContainer, @NonNull Button resetButtonOverlay,
+      @NonNull TextView statusText, @NonNull TextView winnerText) {
     this.rootView = rootView;
     this.btn0 = btn0;
     this.btn1 = btn1;
@@ -71,14 +86,18 @@ public final class ActivityMainBinding implements ViewBinding {
     this.btn6 = btn6;
     this.btn7 = btn7;
     this.btn8 = btn8;
+    this.confettiView = confettiView;
     this.grid = grid;
     this.resetButton = resetButton;
+    this.resetButtonContainer = resetButtonContainer;
+    this.resetButtonOverlay = resetButtonOverlay;
     this.statusText = statusText;
+    this.winnerText = winnerText;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public FrameLayout getRoot() {
     return rootView;
   }
 
@@ -157,6 +176,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.confettiView;
+      ConfettiView confettiView = ViewBindings.findChildViewById(rootView, id);
+      if (confettiView == null) {
+        break missingId;
+      }
+
       id = R.id.grid;
       GridLayout grid = ViewBindings.findChildViewById(rootView, id);
       if (grid == null) {
@@ -169,14 +194,33 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.resetButtonContainer;
+      FrameLayout resetButtonContainer = ViewBindings.findChildViewById(rootView, id);
+      if (resetButtonContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.resetButtonOverlay;
+      Button resetButtonOverlay = ViewBindings.findChildViewById(rootView, id);
+      if (resetButtonOverlay == null) {
+        break missingId;
+      }
+
       id = R.id.statusText;
       TextView statusText = ViewBindings.findChildViewById(rootView, id);
       if (statusText == null) {
         break missingId;
       }
 
-      return new ActivityMainBinding((LinearLayout) rootView, btn0, btn1, btn2, btn3, btn4, btn5,
-          btn6, btn7, btn8, grid, resetButton, statusText);
+      id = R.id.winnerText;
+      TextView winnerText = ViewBindings.findChildViewById(rootView, id);
+      if (winnerText == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((FrameLayout) rootView, btn0, btn1, btn2, btn3, btn4, btn5,
+          btn6, btn7, btn8, confettiView, grid, resetButton, resetButtonContainer,
+          resetButtonOverlay, statusText, winnerText);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
