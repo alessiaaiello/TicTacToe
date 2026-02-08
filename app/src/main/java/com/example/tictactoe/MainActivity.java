@@ -72,13 +72,20 @@ public class MainActivity extends AppCompatActivity {
         if (gameOver) return;
         if (board[index] != 0) return;
 
-        // Player move (always ★)
-        board[index] = 1;
-        buttons[index].setText("★");
+        if (gameMode.equals("friend")) {
+            // Friend mode: alternate between players
+            board[index] = xTurn ? 1 : 2;
+            buttons[index].setText(xTurn ? "★" : "✿");
+        } else {
+            // Computer mode: player is always ★
+            board[index] = 1;
+            buttons[index].setText("★");
+        }
 
         int winner = checkWinner();
         if (winner != 0) {
-            endGame("★ Wins!");
+            String winnerMessage = winner == 1 ? "★ Wins!" : "✿ Wins!";
+            endGame(winnerMessage);
             return;
         }
 
