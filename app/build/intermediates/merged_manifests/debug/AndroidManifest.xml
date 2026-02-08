@@ -33,6 +33,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.tictactoe.DifficultyActivity"
+            android:exported="true" />
+        <activity
             android:name="com.example.tictactoe.MainActivity"
             android:exported="true" />
 

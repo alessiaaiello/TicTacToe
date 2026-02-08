@@ -23,8 +23,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Play with Computer Button
         binding.computerButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-            intent.putExtra("gameMode", "computer");
+            Intent intent = new Intent(HomeActivity.this, DifficultyActivity.class);
             startActivity(intent);
         });
     }

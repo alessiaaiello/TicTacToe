@@ -18,6 +18,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".DifficultyActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
     </application>

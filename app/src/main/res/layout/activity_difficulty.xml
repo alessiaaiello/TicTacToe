@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/main_seascape_background"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Difficulty"
+        android:textSize="44sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:layout_marginBottom="60dp"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
+
+    <Button
+        android:id="@+id/easyButton"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:text="Easy"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:background="#90EE90"
+        android:layout_marginBottom="20dp"
+        android:elevation="8dp" />
+
+    <Button
+        android:id="@+id/mediumButton"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:text="Medium"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:background="#FFD700"
+        android:layout_marginBottom="20dp"
+        android:elevation="8dp" />
+
+    <Button
+        android:id="@+id/hardButton"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:text="Hard"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:background="#FF6347"
+        android:layout_marginBottom="40dp"
+        android:elevation="8dp" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:text="← Back"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:background="#87CEEB"
+        android:elevation="8dp" />
+
+</LinearLayout>

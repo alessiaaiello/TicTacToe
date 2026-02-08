@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean xTurn = true;
     private boolean gameOver = false;
     private String gameMode = "friend"; // "friend" or "computer"
+    private String difficulty = "hard"; // "easy", "medium", or "hard"
     private Random random = new Random();
     private Handler handler = new Handler();
 
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         gameMode = getIntent().getStringExtra("gameMode");
         if (gameMode == null) {
             gameMode = "friend";
+        }
+
+        difficulty = getIntent().getStringExtra("difficulty");
+        if (difficulty == null) {
+            difficulty = "hard";
         }
 
         buttons = new Button[]{
@@ -76,7 +82,118 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void computerMove() {
-        // Find best move using minimax algorithm
+        if (difficulty.equals("easy")) {
+            easyMove();
+        } else if (difficulty.equals("medium")) {
+            mediumMove();
+        } else {
+            hardMove();
+        }
+    }
+
+    private void easyMove() {
+        // Random move
+        int[] availableMoves = new int[9];
+        int count = 0;
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == 0) {
+                availableMoves[count] = i;
+                count++;
+            }
+        }
+
+        if (count > 0) {
+            int randomIndex = random.nextInt(count);
+            int move = availableMoves[randomIndex];
+            board[move] = 2;
+            buttons[move].setText("✿");
+
+            int winner = checkWinner();
+            if (winner != 0) {
+                endGame("✿ Wins!");
+                return;
+            }
+
+            if (isBoardFull()) {
+                endGame("Draw!");
+                return;
+            }
+        }
+        updateStatus();
+    }
+
+    private void mediumMove() {
+        // Simple strategy: take center, corners, then edges
+        // First, try to win
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == 0) {
+                board[i] = 2;
+                if (checkWinner() == 2) {
+                    buttons[i].setText("✿");
+                    endGame("✿ Wins!");
+                    return;
+                }
+                board[i] = 0;
+            }
+        }
+
+        // Block player from winning
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == 0) {
+                board[i] = 1;
+                if (checkWinner() == 1) {
+                    board[i] = 2;
+                    buttons[i].setText("✿");
+                    board[i] = 2;
+                    updateStatus();
+                    return;
+                }
+                board[i] = 0;
+            }
+        }
+
+        // Take center
+        if (board[4] == 0) {
+            board[4] = 2;
+            buttons[4].setText("✿");
+        }
+        // Take corners
+        else if (board[0] == 0) {
+            board[0] = 2;
+            buttons[0].setText("✿");
+        }
+        // Random available move
+        else {
+            int[] availableMoves = new int[9];
+            int count = 0;
+            for (int i = 0; i < 9; i++) {
+                if (board[i] == 0) {
+                    availableMoves[count] = i;
+                    count++;
+                }
+            }
+            if (count > 0) {
+                int move = availableMoves[random.nextInt(count)];
+                board[move] = 2;
+                buttons[move].setText("✿");
+            }
+        }
+
+        int winner = checkWinner();
+        if (winner != 0) {
+            endGame("✿ Wins!");
+            return;
+        }
+
+        if (isBoardFull()) {
+            endGame("Draw!");
+            return;
+        }
+        updateStatus();
+    }
+
+    private void hardMove() {
+        // Minimax algorithm
         int bestScore = Integer.MIN_VALUE;
         int bestMove = -1;
 
