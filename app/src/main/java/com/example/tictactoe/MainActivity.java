@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.resetButton.setOnClickListener(v -> resetGame());
         binding.resetButtonOverlay.setOnClickListener(v -> resetGame());
+        binding.backButton.setOnClickListener(v -> finish());
         updateStatus();
     }
 

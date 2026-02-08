@@ -23,6 +23,9 @@ public final class ActivityMainBinding implements ViewBinding {
   private final FrameLayout rootView;
 
   @NonNull
+  public final Button backButton;
+
+  @NonNull
   public final Button btn0;
 
   @NonNull
@@ -70,13 +73,15 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final TextView winnerText;
 
-  private ActivityMainBinding(@NonNull FrameLayout rootView, @NonNull Button btn0,
-      @NonNull Button btn1, @NonNull Button btn2, @NonNull Button btn3, @NonNull Button btn4,
-      @NonNull Button btn5, @NonNull Button btn6, @NonNull Button btn7, @NonNull Button btn8,
-      @NonNull ConfettiView confettiView, @NonNull GridLayout grid, @NonNull Button resetButton,
-      @NonNull FrameLayout resetButtonContainer, @NonNull Button resetButtonOverlay,
-      @NonNull TextView statusText, @NonNull TextView winnerText) {
+  private ActivityMainBinding(@NonNull FrameLayout rootView, @NonNull Button backButton,
+      @NonNull Button btn0, @NonNull Button btn1, @NonNull Button btn2, @NonNull Button btn3,
+      @NonNull Button btn4, @NonNull Button btn5, @NonNull Button btn6, @NonNull Button btn7,
+      @NonNull Button btn8, @NonNull ConfettiView confettiView, @NonNull GridLayout grid,
+      @NonNull Button resetButton, @NonNull FrameLayout resetButtonContainer,
+      @NonNull Button resetButtonOverlay, @NonNull TextView statusText,
+      @NonNull TextView winnerText) {
     this.rootView = rootView;
+    this.backButton = backButton;
     this.btn0 = btn0;
     this.btn1 = btn1;
     this.btn2 = btn2;
@@ -122,6 +127,12 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.backButton;
+      Button backButton = ViewBindings.findChildViewById(rootView, id);
+      if (backButton == null) {
+        break missingId;
+      }
+
       id = R.id.btn0;
       Button btn0 = ViewBindings.findChildViewById(rootView, id);
       if (btn0 == null) {
@@ -218,8 +229,8 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((FrameLayout) rootView, btn0, btn1, btn2, btn3, btn4, btn5,
-          btn6, btn7, btn8, confettiView, grid, resetButton, resetButtonContainer,
+      return new ActivityMainBinding((FrameLayout) rootView, backButton, btn0, btn1, btn2, btn3,
+          btn4, btn5, btn6, btn7, btn8, confettiView, grid, resetButton, resetButtonContainer,
           resetButtonOverlay, statusText, winnerText);
     }
     String missingId = rootView.getResources().getResourceName(id);
