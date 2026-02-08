@@ -35,6 +35,13 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeActivity.this, DifficultyActivity.class);
             startActivity(intent);
         });
+
+        // Long Mode Button
+        binding.longModeButton.setOnClickListener(v -> {
+            playClickSound();
+            Intent intent = new Intent(HomeActivity.this, LongModeOpponentActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void playClickSound() {

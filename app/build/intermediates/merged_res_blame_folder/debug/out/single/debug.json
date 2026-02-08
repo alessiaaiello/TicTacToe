@@ -12,6 +12,10 @@
         "source": "com.example.tictactoe.app-main-31:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
+        "merged": "com.example.tictactoe.app-merged_res-29:/layout_activity_long_mode_game.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_long_mode_game.xml"
+    },
+    {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "com.example.tictactoe.app-main-31:/mipmap-xxhdpi/ic_launcher.png"
     },
@@ -38,6 +42,10 @@
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/drawable_main_seascape_background.xml.flat",
         "source": "com.example.tictactoe.app-main-31:/drawable/main_seascape_background.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/layout_activity_long_mode_opponent.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_long_mode_opponent.xml"
     },
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/drawable_seascape_background.xml.flat",
@@ -70,6 +78,10 @@
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "com.example.tictactoe.app-main-31:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.tictactoe.app-merged_res-29:/layout_activity_long_mode_rounds.xml.flat",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_long_mode_rounds.xml"
     },
     {
         "merged": "com.example.tictactoe.app-merged_res-29:/mipmap-xxhdpi_ic_launcher_round.png.flat",

@@ -22,7 +22,7 @@
 15-->[androidx.core:core:1.9.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/fc47ea5fb276423e8fad94fa74d4faeb/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
 16
 17    <application
-17-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:5:5-29:19
+17-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:5:5-38:19
 18        android:allowBackup="true"
 18-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:6:9-35
 19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -73,28 +73,46 @@
 42-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:27:13-41
 43            android:exported="true" />
 43-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:28:13-36
-44
-45        <provider
-45-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
-46            android:name="androidx.startup.InitializationProvider"
-46-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
-47            android:authorities="com.example.tictactoe.androidx-startup"
-47-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
-48            android:exported="false" >
-48-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
-49            <meta-data
-49-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
-50                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-50-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
-51                android:value="androidx.startup" />
-51-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
-52            <meta-data
-52-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/299e536429a838076de3e8055149ef39/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
-53                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-53-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/299e536429a838076de3e8055149ef39/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
-54                android:value="androidx.startup" />
-54-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/299e536429a838076de3e8055149ef39/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
-55        </provider>
-56    </application>
-57
-58</manifest>
+44        <activity
+44-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:29:9-31:39
+45            android:name="com.example.tictactoe.LongModeOpponentActivity"
+45-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:30:13-53
+46            android:exported="true" />
+46-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:31:13-36
+47        <activity
+47-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:32:9-34:39
+48            android:name="com.example.tictactoe.LongModeRoundsActivity"
+48-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:33:13-51
+49            android:exported="true" />
+49-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:34:13-36
+50        <activity
+50-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:35:9-37:39
+51            android:name="com.example.tictactoe.LongModeGameActivity"
+51-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:36:13-49
+52            android:exported="true" />
+52-->/Users/alessiavalentinaaiello/git/TicTacToe/app/src/main/AndroidManifest.xml:37:13-36
+53
+54        <provider
+54-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+55            android:name="androidx.startup.InitializationProvider"
+55-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+56            android:authorities="com.example.tictactoe.androidx-startup"
+56-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+57            android:exported="false" >
+57-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+58            <meta-data
+58-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+59                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+59-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+60                android:value="androidx.startup" />
+60-->[androidx.emoji2:emoji2:1.2.0] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/0bd8dfeda9a365020a9192a881382a75/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+61            <meta-data
+61-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/299e536429a838076de3e8055149ef39/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+62                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+62-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/299e536429a838076de3e8055149ef39/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+63                android:value="androidx.startup" />
+63-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/alessiavalentinaaiello/.gradle/caches/transforms-3/299e536429a838076de3e8055149ef39/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+64        </provider>
+65    </application>
+66
+67</manifest>

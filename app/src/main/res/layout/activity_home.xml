@@ -47,6 +47,20 @@
         android:fontFamily="sans-serif-black"
         android:letterSpacing="0.08"
         android:background="#FF8C42"
+        android:layout_marginBottom="30dp"
+        android:elevation="8dp" />
+
+    <Button
+        android:id="@+id/longModeButton"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:text="Long Mode"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.08"
+        android:background="#9370DB"
         android:elevation="8dp" />
 
 </LinearLayout>

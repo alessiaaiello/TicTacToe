@@ -2952,6 +2952,7 @@ id linear
 id listMode
 id list_item
 id loadingAnimation
+id longModeButton
 id m3_side_sheet
 id marquee
 id masked
@@ -3059,11 +3060,15 @@ id rightToLeft
 id right_icon
 id right_side
 id rounded
+id roundsFiveButton
+id roundsTenButton
+id roundsThreeButton
 id row_index_key
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
+id scoreText
 id screen
 id scroll
 id scrollIndicatorDown
@@ -3302,6 +3307,9 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_difficulty
 layout activity_home
+layout activity_long_mode_game
+layout activity_long_mode_opponent
+layout activity_long_mode_rounds
 layout activity_main
 layout activity_splash
 layout custom_dialog

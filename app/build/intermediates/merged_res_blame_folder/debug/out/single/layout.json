@@ -1,5 +1,17 @@
 [
     {
+        "merged": "com.example.tictactoe.app-mergeDebugResources-28:/layout/activity_long_mode_game.xml",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_long_mode_game.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-mergeDebugResources-28:/layout/activity_long_mode_rounds.xml",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_long_mode_rounds.xml"
+    },
+    {
+        "merged": "com.example.tictactoe.app-mergeDebugResources-28:/layout/activity_long_mode_opponent.xml",
+        "source": "com.example.tictactoe.app-main-31:/layout/activity_long_mode_opponent.xml"
+    },
+    {
         "merged": "com.example.tictactoe.app-mergeDebugResources-28:/layout/activity_difficulty.xml",
         "source": "com.example.tictactoe.app-main-31:/layout/activity_difficulty.xml"
     },

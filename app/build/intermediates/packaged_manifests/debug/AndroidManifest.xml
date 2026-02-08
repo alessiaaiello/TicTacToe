@@ -41,6 +41,15 @@
         <activity
             android:name="com.example.tictactoe.MainActivity"
             android:exported="true" />
+        <activity
+            android:name="com.example.tictactoe.LongModeOpponentActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.tictactoe.LongModeRoundsActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.tictactoe.LongModeGameActivity"
+            android:exported="true" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

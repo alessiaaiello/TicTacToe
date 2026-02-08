@@ -26,6 +26,15 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".LongModeOpponentActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LongModeRoundsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LongModeGameActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
