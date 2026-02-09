@@ -350,21 +350,21 @@ public class MainActivity extends AppCompatActivity {
 
     private String[] getCurrentSymbols() {
         SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
-        String symbolSet = prefs.getString("symbolSet", "classic");
+        String theme = prefs.getString("backgroundTheme", "seascape");
         
-        switch (symbolSet) {
-            case "hearts":
-                return new String[]{"♥", "♠"};
-            case "numbers":
-                return new String[]{"1", "2"};
-            case "letters":
-                return new String[]{"X", "O"};
-            case "animals":
-                return new String[]{"🐱", "🐶"};
-            case "sports":
-                return new String[]{"⚽", "🏀"};
+        switch (theme) {
+            case "forest":
+                return new String[]{"🐱", "🐶"}; // Animals for forest
+            case "desert":
+                return new String[]{"⚽", "🏀"}; // Sports for desert
+            case "space":
+                return new String[]{"X", "O"}; // Letters for space
+            case "sunset":
+                return new String[]{"♥", "♠"}; // Hearts for sunset
+            case "ocean":
+                return new String[]{"1", "2"}; // Numbers for ocean
             default:
-                return new String[]{"★", "✿"}; // classic
+                return new String[]{"★", "✿"}; // Classic for seascape
         }
     }
 
@@ -375,6 +375,32 @@ public class MainActivity extends AppCompatActivity {
         int backgroundRes = getBackgroundResource(background);
         if (backgroundRes != 0) {
             binding.getRoot().setBackgroundResource(backgroundRes);
+        }
+        
+        // Apply themed button colors
+        applyThemedButtonColors(background);
+    }
+
+    private void applyThemedButtonColors(String theme) {
+        int buttonColor = getThemeButtonColor(theme);
+        
+        if (binding.resetButton != null) {
+            binding.resetButton.setBackgroundColor(buttonColor);
+        }
+        if (binding.resetButtonOverlay != null) {
+            binding.resetButtonOverlay.setBackgroundColor(buttonColor);
+        }
+    }
+
+    private int getThemeButtonColor(String theme) {
+        switch (theme) {
+            case "seascape": return 0xFFFF8C42; // Orange
+            case "forest": return 0xFF4CAF50; // Green
+            case "desert": return 0xFFF4A460; // Sandy
+            case "space": return 0xFF9370DB; // Purple
+            case "sunset": return 0xFFFF6B35; // Sunset orange
+            case "ocean": return 0xFF0099CC; // Ocean blue
+            default: return 0xFFFF8C42;
         }
     }
 

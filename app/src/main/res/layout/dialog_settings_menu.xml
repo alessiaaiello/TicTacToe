@@ -52,6 +52,19 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:background="#4CAF50"
+        android:layout_marginBottom="12dp"
+        android:elevation="4dp"
+        android:fontFamily="serif" />
+
+    <Button
+        android:id="@+id/backgroundMusicBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="🎵 Background Music"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="#FF6B9D"
         android:layout_marginBottom="20dp"
         android:elevation="4dp"
         android:fontFamily="serif" />

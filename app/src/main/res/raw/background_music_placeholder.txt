@@ -1,0 +1,11 @@
+# Background Music Placeholder
+# 
+# This file indicates that a background music file should be added
+# File should be named: background_music.mp3 or background_music.wav
+# Place in: app/src/main/res/raw/
+# 
+# Recommended:
+# - Length: 1-2 minute loopable track
+# - Format: MP3 or WAV
+# - Size: Under 2MB
+# - Style: Relaxing, ambient background music

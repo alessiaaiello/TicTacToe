@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.SoundPool;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tictactoe.databinding.ActivityHomeBinding;
 import java.io.File;
@@ -27,6 +29,8 @@ public class HomeActivity extends AppCompatActivity {
     private int clickSoundId;
     private TextView welcomeText;
     private ImageView profileImage;
+    private MediaPlayer backgroundMusicPlayer;
+    private boolean isMusicPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,9 @@ public class HomeActivity extends AppCompatActivity {
         // Apply saved background theme and load player profile
         applySavedBackground();
         loadPlayerProfile();
+        
+        // Start background music if enabled
+        startBackgroundMusic();
 
         // Play with Friend Button
         binding.friendButton.setOnClickListener(v -> {
@@ -138,6 +145,7 @@ public class HomeActivity extends AppCompatActivity {
         Button editProfileBtn = dialogView.findViewById(R.id.editProfileBtn);
         Button changeLayoutBtn = dialogView.findViewById(R.id.changeLayoutBtn);
         Button playerIdBtn = dialogView.findViewById(R.id.playerIdBtn);
+        Button backgroundMusicBtn = dialogView.findViewById(R.id.backgroundMusicBtn);
         Button cancelBtn = dialogView.findViewById(R.id.cancelBtn);
 
         AlertDialog dialog = builder.create();
@@ -162,6 +170,12 @@ public class HomeActivity extends AppCompatActivity {
             showPlayerId();
         });
 
+        backgroundMusicBtn.setOnClickListener(v -> {
+            playClickSound();
+            dialog.dismiss();
+            toggleBackgroundMusic();
+        });
+
         cancelBtn.setOnClickListener(v -> {
             playClickSound();
             dialog.dismiss();
@@ -172,19 +186,164 @@ public class HomeActivity extends AppCompatActivity {
 
     private void showLayoutOptions() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("What would you like to change?");
+        builder.setTitle("Choose Complete Theme");
 
-        String[] options = {"Grid Symbols", "Background Theme"};
-        builder.setItems(options, (dialog, which) -> {
-            if (which == 0) {
-                showSymbolOptions();
-            } else if (which == 1) {
-                showBackgroundOptions();
-            }
+        String[] themes = {
+            "Seascape - 🌊 Ocean Adventure",
+            "Forest - 🌲 Nature Escape", 
+            "Desert - 🏜️ Sand Dunes",
+            "Space - 🌌 Cosmic Journey",
+            "Sunset - 🌅 Golden Hour",
+            "Ocean - 🐠 Deep Blue"
+        };
+
+        builder.setSingleChoiceItems(themes, -1, null);
+        builder.setPositiveButton("Apply Theme", (dialog, which) -> {
+            int selectedPosition = ((android.widget.ListView) ((android.app.AlertDialog) dialog).getListView()).getCheckedItemPosition();
+            String selectedTheme = getThemeValue(selectedPosition);
+            applyCompleteTheme(selectedTheme);
         });
 
         builder.setNegativeButton("Cancel", null);
         builder.show();
+    }
+
+    private String getThemeValue(int position) {
+        switch (position) {
+            case 0: return "seascape";
+            case 1: return "forest";
+            case 2: return "desert";
+            case 3: return "space";
+            case 4: return "sunset";
+            case 5: return "ocean";
+            default: return "seascape";
+        }
+    }
+
+    private void applyCompleteTheme(String theme) {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        
+        // Apply complete theme package
+        switch (theme) {
+            case "seascape":
+                editor.putString("backgroundTheme", "seascape");
+                editor.putString("symbolSet", "classic");
+                editor.putString("themeColors", "ocean");
+                break;
+            case "forest":
+                editor.putString("backgroundTheme", "forest");
+                editor.putString("symbolSet", "animals");
+                editor.putString("themeColors", "forest");
+                break;
+            case "desert":
+                editor.putString("backgroundTheme", "desert");
+                editor.putString("symbolSet", "sports");
+                editor.putString("themeColors", "desert");
+                break;
+            case "space":
+                editor.putString("backgroundTheme", "space");
+                editor.putString("symbolSet", "letters");
+                editor.putString("themeColors", "space");
+                break;
+            case "sunset":
+                editor.putString("backgroundTheme", "sunset");
+                editor.putString("symbolSet", "hearts");
+                editor.putString("themeColors", "sunset");
+                break;
+            case "ocean":
+                editor.putString("backgroundTheme", "ocean");
+                editor.putString("symbolSet", "numbers");
+                editor.putString("themeColors", "ocean");
+                break;
+        }
+        
+        editor.putString("gameLayout", theme); // Keep backward compatibility
+        editor.apply();
+        
+        // Apply immediately
+        updateHomeBackground(theme);
+        updateHomeThemeColors(theme);
+        
+        // Show confirmation
+        showThemeConfirmation(theme);
+    }
+
+    private void showThemeConfirmation(String theme) {
+        String themeName = getThemeDisplayName(theme);
+        String[] symbols = getCurrentThemeSymbols(theme);
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Theme Applied!");
+        builder.setMessage("Your " + themeName + " theme has been applied!\n\n" +
+                "Background: " + themeName + "\n" +
+                "Symbols: " + symbols[0] + " " + symbols[1] + "\n\n" +
+                "Changes will take effect in your next game.");
+        builder.setPositiveButton("Awesome!", null);
+        builder.show();
+    }
+
+    private String getThemeDisplayName(String theme) {
+        switch (theme) {
+            case "seascape": return "Seascape";
+            case "forest": return "Forest";
+            case "desert": return "Desert";
+            case "space": return "Space";
+            case "sunset": return "Sunset";
+            case "ocean": return "Ocean";
+            default: return theme;
+        }
+    }
+
+    private String[] getCurrentThemeSymbols(String theme) {
+        switch (theme) {
+            case "seascape": return new String[]{"★", "✿"};
+            case "forest": return new String[]{"🐱", "🐶"};
+            case "desert": return new String[]{"⚽", "🏀"};
+            case "space": return new String[]{"X", "O"};
+            case "sunset": return new String[]{"♥", "♠"};
+            case "ocean": return new String[]{"1", "2"};
+            default: return new String[]{"★", "✿"};
+        }
+    }
+
+    private void updateHomeThemeColors(String theme) {
+        // Update button colors based on theme
+        int buttonColor = getThemeButtonColor(theme);
+        
+        if (binding.friendButton != null) {
+            binding.friendButton.setBackgroundColor(buttonColor);
+        }
+        if (binding.computerButton != null) {
+            binding.computerButton.setBackgroundColor(buttonColor);
+        }
+        if (binding.longModeButton != null) {
+            binding.longModeButton.setBackgroundColor(getThemeSecondaryButtonColor(theme));
+        }
+    }
+
+    private int getThemeButtonColor(String theme) {
+        switch (theme) {
+            case "seascape": return 0xFFFF8C42; // Orange
+            case "forest": return 0xFF4CAF50; // Green
+            case "desert": return 0xFFF4A460; // Sandy
+            case "space": return 0xFF9370DB; // Purple
+            case "sunset": return 0xFFFF6B35; // Sunset orange
+            case "ocean": return 0xFF0099CC; // Ocean blue
+            default: return 0xFFFF8C42;
+        }
+    }
+
+    private int getThemeSecondaryButtonColor(String theme) {
+        switch (theme) {
+            case "seascape": return 0xFF9370DB; // Purple
+            case "forest": return 0xFF8B4513; // Brown
+            case "desert": return 0xFFDEB887; // Burlywood
+            case "space": return 0xFF191970; // Midnight blue
+            case "sunset": return 0xFFC73E1D; // Deep orange
+            case "ocean": return 0xFF006994; // Dark ocean blue
+            default: return 0xFF9370DB;
+        }
     }
 
     private void showSymbolOptions() {
@@ -316,6 +475,73 @@ public class HomeActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private void startBackgroundMusic() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        boolean musicEnabled = prefs.getBoolean("backgroundMusicEnabled", false);
+        
+        if (musicEnabled && !isMusicPlaying) {
+            try {
+                int musicRes = getResources().getIdentifier("background_music", "raw", getPackageName());
+                if (musicRes != 0) {
+                    backgroundMusicPlayer = MediaPlayer.create(this, musicRes);
+                    if (backgroundMusicPlayer != null) {
+                        backgroundMusicPlayer.setLooping(true);
+                        backgroundMusicPlayer.setVolume(0.3f, 0.3f);
+                        backgroundMusicPlayer.start();
+                        isMusicPlaying = true;
+                    }
+                } else {
+                    // Music file not found, show toast
+                    android.widget.Toast.makeText(this, "Background music file not found", android.widget.Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                android.widget.Toast.makeText(this, "Unable to start background music", android.widget.Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void stopBackgroundMusic() {
+        if (backgroundMusicPlayer != null && isMusicPlaying) {
+            backgroundMusicPlayer.stop();
+            backgroundMusicPlayer.release();
+            backgroundMusicPlayer = null;
+            isMusicPlaying = false;
+        }
+    }
+
+    private void toggleBackgroundMusic() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        boolean musicEnabled = prefs.getBoolean("backgroundMusicEnabled", false);
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Background Music");
+        
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_background_music, null);
+        Switch musicSwitch = dialogView.findViewById(R.id.musicSwitch);
+        
+        musicSwitch.setChecked(musicEnabled);
+        
+        builder.setView(dialogView);
+        
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            boolean newState = musicSwitch.isChecked();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("backgroundMusicEnabled", newState);
+            editor.apply();
+            
+            if (newState && !isMusicPlaying) {
+                startBackgroundMusic();
+            } else if (!newState && isMusicPlaying) {
+                stopBackgroundMusic();
+            }
+        });
+        
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
     private void playClickSound() {
         if (soundPool != null) {
             soundPool.play(clickSoundId, 0.5f, 0.5f, 1, 0, 1.0f);
@@ -328,6 +554,33 @@ public class HomeActivity extends AppCompatActivity {
             soundPool.release();
             soundPool = null;
         }
+        stopBackgroundMusic();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        boolean musicEnabled = prefs.getBoolean("backgroundMusicEnabled", false);
+        if (musicEnabled && backgroundMusicPlayer != null && backgroundMusicPlayer.isPlaying()) {
+            backgroundMusicPlayer.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        boolean musicEnabled = prefs.getBoolean("backgroundMusicEnabled", false);
+        if (musicEnabled && backgroundMusicPlayer != null && !backgroundMusicPlayer.isPlaying()) {
+            try {
+                backgroundMusicPlayer.start();
+                isMusicPlaying = true;
+            } catch (Exception e) {
+                // Handle case where media player was released
+                startBackgroundMusic();
+            }
+        }
     }
 }
