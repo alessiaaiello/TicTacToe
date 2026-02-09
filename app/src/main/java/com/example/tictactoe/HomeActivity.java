@@ -481,18 +481,14 @@ public class HomeActivity extends AppCompatActivity {
         
         if (musicEnabled && !isMusicPlaying) {
             try {
-                int musicRes = getResources().getIdentifier("background_music", "raw", getPackageName());
-                if (musicRes != 0) {
-                    backgroundMusicPlayer = MediaPlayer.create(this, musicRes);
-                    if (backgroundMusicPlayer != null) {
-                        backgroundMusicPlayer.setLooping(true);
-                        backgroundMusicPlayer.setVolume(0.3f, 0.3f);
-                        backgroundMusicPlayer.start();
-                        isMusicPlaying = true;
-                    }
+                backgroundMusicPlayer = MediaPlayer.create(this, R.raw.background_music);
+                if (backgroundMusicPlayer != null) {
+                    backgroundMusicPlayer.setLooping(true);
+                    backgroundMusicPlayer.setVolume(0.3f, 0.3f);
+                    backgroundMusicPlayer.start();
+                    isMusicPlaying = true;
                 } else {
-                    // Music file not found, show toast
-                    android.widget.Toast.makeText(this, "Background music file not found", android.widget.Toast.LENGTH_SHORT).show();
+                    android.widget.Toast.makeText(this, "Unable to load background music", android.widget.Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
