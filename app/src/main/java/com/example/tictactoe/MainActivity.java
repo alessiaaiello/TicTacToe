@@ -1,5 +1,7 @@
 package com.example.tictactoe;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.media.SoundPool;
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Apply saved background theme
+        applyBackgroundTheme();
 
         gameMode = getIntent().getStringExtra("gameMode");
         if (gameMode == null) {
@@ -65,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
             playClickSound();
             finish();
         });
+
+        // Settings Button
+        binding.settingsButton.setOnClickListener(v -> {
+            playClickSound();
+            Intent intent = new Intent(MainActivity.this, ProfileSetupActivity.class);
+            intent.putExtra("editMode", true);
+            startActivity(intent);
+        });
+
         updateStatus();
     }
 
@@ -72,19 +86,20 @@ public class MainActivity extends AppCompatActivity {
         if (gameOver) return;
         if (board[index] != 0) return;
 
+        String[] symbols = getCurrentSymbols();
         if (gameMode.equals("friend")) {
             // Friend mode: alternate between players
             board[index] = xTurn ? 1 : 2;
-            buttons[index].setText(xTurn ? "★" : "✿");
+            buttons[index].setText(xTurn ? symbols[0] : symbols[1]);
         } else {
-            // Computer mode: player is always ★
+            // Computer mode: player is always first symbol
             board[index] = 1;
-            buttons[index].setText("★");
+            buttons[index].setText(symbols[0]);
         }
 
         int winner = checkWinner();
         if (winner != 0) {
-            String winnerMessage = winner == 1 ? "★ Wins!" : "✿ Wins!";
+            String winnerMessage = winner == 1 ? symbols[0] + " Wins!" : symbols[1] + " Wins!";
             endGame(winnerMessage);
             return;
         }
@@ -129,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
             int randomIndex = random.nextInt(count);
             int move = availableMoves[randomIndex];
             board[move] = 2;
-            buttons[move].setText("✿");
+            String[] symbols = getCurrentSymbols();
+            buttons[move].setText(symbols[1]);
 
             int winner = checkWinner();
             if (winner != 0) {
@@ -152,8 +168,9 @@ public class MainActivity extends AppCompatActivity {
             if (board[i] == 0) {
                 board[i] = 2;
                 if (checkWinner() == 2) {
-                    buttons[i].setText("✿");
-                    endGame("✿ Wins!");
+                    String[] symbols = getCurrentSymbols();
+                    buttons[i].setText(symbols[1]);
+                    endGame(symbols[1] + " Wins!");
                     return;
                 }
                 board[i] = 0;
@@ -166,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 board[i] = 1;
                 if (checkWinner() == 1) {
                     board[i] = 2;
-                    buttons[i].setText("✿");
+                    buttons[i].setText(getCurrentSymbols()[1]);
                     board[i] = 2;
                     updateStatus();
                     return;
@@ -175,15 +192,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        String[] symbols = getCurrentSymbols();
         // Take center
         if (board[4] == 0) {
             board[4] = 2;
-            buttons[4].setText("✿");
+            buttons[4].setText(symbols[1]);
         }
         // Take corners
         else if (board[0] == 0) {
             board[0] = 2;
-            buttons[0].setText("✿");
+            buttons[0].setText(symbols[1]);
         }
         // Random available move
         else {
@@ -198,13 +216,13 @@ public class MainActivity extends AppCompatActivity {
             if (count > 0) {
                 int move = availableMoves[random.nextInt(count)];
                 board[move] = 2;
-                buttons[move].setText("✿");
+                buttons[move].setText(symbols[1]);
             }
         }
 
         int winner = checkWinner();
         if (winner != 0) {
-            endGame("✿ Wins!");
+            endGame(symbols[1] + " Wins!");
             return;
         }
 
@@ -234,11 +252,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (bestMove != -1) {
             board[bestMove] = 2;
-            buttons[bestMove].setText("✿");
+            String[] symbols = getCurrentSymbols();
+            buttons[bestMove].setText(symbols[1]);
 
             int winner = checkWinner();
             if (winner != 0) {
-                endGame("✿ Wins!");
+                endGame(symbols[1] + " Wins!");
                 return;
             }
 
@@ -301,10 +320,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStatus() {
+        String[] symbols = getCurrentSymbols();
         if (gameMode.equals("computer")) {
-            binding.statusText.setText(xTurn ? "Your turn (★)" : "Computer (✿)");
+            binding.statusText.setText(xTurn ? "Your turn (" + symbols[0] + ")" : "Computer (" + symbols[1] + ")");
         } else {
-            binding.statusText.setText(xTurn ? "★'s turn" : "✿'s turn");
+            binding.statusText.setText(xTurn ? symbols[0] + "'s turn" : symbols[1] + "'s turn");
         }
     }
 
@@ -326,6 +346,48 @@ public class MainActivity extends AppCompatActivity {
         binding.confettiView.stopConfetti();
         binding.confettiView.setVisibility(android.view.View.GONE);
         updateStatus();
+    }
+
+    private String[] getCurrentSymbols() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        String symbolSet = prefs.getString("symbolSet", "classic");
+        
+        switch (symbolSet) {
+            case "hearts":
+                return new String[]{"♥", "♠"};
+            case "numbers":
+                return new String[]{"1", "2"};
+            case "letters":
+                return new String[]{"X", "O"};
+            case "animals":
+                return new String[]{"🐱", "🐶"};
+            case "sports":
+                return new String[]{"⚽", "🏀"};
+            default:
+                return new String[]{"★", "✿"}; // classic
+        }
+    }
+
+    private void applyBackgroundTheme() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        String background = prefs.getString("backgroundTheme", "seascape");
+        
+        int backgroundRes = getBackgroundResource(background);
+        if (backgroundRes != 0) {
+            binding.getRoot().setBackgroundResource(backgroundRes);
+        }
+    }
+
+    private int getBackgroundResource(String background) {
+        switch (background) {
+            case "seascape": return R.drawable.main_seascape_background;
+            case "forest": return R.drawable.main_forest_background;
+            case "desert": return R.drawable.main_desert_background;
+            case "space": return R.drawable.main_space_background;
+            case "sunset": return R.drawable.main_sunset_background;
+            case "ocean": return R.drawable.main_ocean_background;
+            default: return R.drawable.main_seascape_background;
+        }
     }
 
     private int checkWinner() {

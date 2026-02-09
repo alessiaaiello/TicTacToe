@@ -38,7 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         soundPool = new SoundPool.Builder().setMaxStreams(1).build();
         clickSoundId = soundPool.load(this, R.raw.button_click, 1);
 
-        // Load and display player profile
+        // Apply saved background theme and load player profile
+        applySavedBackground();
         loadPlayerProfile();
 
         // Play with Friend Button
@@ -170,31 +171,125 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showLayoutOptions() {
-        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
-        String currentLayout = prefs.getString("gameLayout", "seascape");
-
-        String[] layouts = {"Seascape", "Forest", "Desert", "Space"};
-        String[] layoutValues = {"seascape", "forest", "desert", "space"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose Layout");
-        builder.setSingleChoiceItems(layouts, 
-            java.util.Arrays.asList(layoutValues).indexOf(currentLayout), null);
+        builder.setTitle("What would you like to change?");
 
-        builder.setPositiveButton("Apply", (dialog, which) -> {
-            int selectedPosition = ((android.widget.ListView) ((android.app.AlertDialog) dialog).getListView()).getCheckedItemPosition();
-            String selectedLayout = layoutValues[selectedPosition];
-            
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("gameLayout", selectedLayout);
-            editor.apply();
-            
-            // Restart activity to apply new layout
-            recreate();
+        String[] options = {"Grid Symbols", "Background Theme"};
+        builder.setItems(options, (dialog, which) -> {
+            if (which == 0) {
+                showSymbolOptions();
+            } else if (which == 1) {
+                showBackgroundOptions();
+            }
         });
 
         builder.setNegativeButton("Cancel", null);
         builder.show();
+    }
+
+    private void showSymbolOptions() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        String currentSymbols = prefs.getString("symbolSet", "classic");
+
+        String[] symbolSets = {"Classic (★ ✿)", "Hearts (♥ ♠)", "Numbers (1 2)", "Letters (X O)", "Animals (🐱 🐶)", "Sports (⚽ 🏀)"};
+        String[] symbolValues = {"classic", "hearts", "numbers", "letters", "animals", "sports"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Symbol Set");
+        builder.setSingleChoiceItems(symbolSets, 
+            java.util.Arrays.asList(symbolValues).indexOf(currentSymbols), null);
+
+        builder.setPositiveButton("Apply", (dialog, which) -> {
+            int selectedPosition = ((android.widget.ListView) ((android.app.AlertDialog) dialog).getListView()).getCheckedItemPosition();
+            String selectedSymbols = symbolValues[selectedPosition];
+            
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("symbolSet", selectedSymbols);
+            editor.apply();
+            
+            // The change will apply automatically in the next game
+            showSymbolChangeConfirmation(selectedSymbols);
+        });
+
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    private void showBackgroundOptions() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        String currentBackground = prefs.getString("backgroundTheme", "seascape");
+
+        String[] backgrounds = {"Seascape", "Forest", "Desert", "Space", "Sunset", "Ocean"};
+        String[] backgroundValues = {"seascape", "forest", "desert", "space", "sunset", "ocean"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Background Theme");
+        builder.setSingleChoiceItems(backgrounds, 
+            java.util.Arrays.asList(backgroundValues).indexOf(currentBackground), null);
+
+        builder.setPositiveButton("Apply", (dialog, which) -> {
+            int selectedPosition = ((android.widget.ListView) ((android.app.AlertDialog) dialog).getListView()).getCheckedItemPosition();
+            String selectedBackground = backgroundValues[selectedPosition];
+            
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("backgroundTheme", selectedBackground);
+            editor.putString("gameLayout", selectedBackground); // Keep backward compatibility
+            editor.apply();
+            
+            // Update home screen background immediately
+            updateHomeBackground(selectedBackground);
+        });
+
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    private void showSymbolChangeConfirmation(String symbolSet) {
+        String displayName = getSymbolDisplayName(symbolSet);
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Symbols Changed!");
+        builder.setMessage("Your symbols have been updated to: " + displayName + "\n\nThese will appear in your next game.");
+        builder.setPositiveButton("Great!", null);
+        builder.show();
+    }
+
+    private String getSymbolDisplayName(String symbolSet) {
+        switch (symbolSet) {
+            case "classic": return "Classic (★ ✿)";
+            case "hearts": return "Hearts (♥ ♠)";
+            case "numbers": return "Numbers (1 2)";
+            case "letters": return "Letters (X O)";
+            case "animals": return "Animals (🐱 🐶)";
+            case "sports": return "Sports (⚽ 🏀)";
+            default: return symbolSet;
+        }
+    }
+
+    private void updateHomeBackground(String background) {
+        // Update home screen background
+        int backgroundRes = getBackgroundResource(background);
+        if (backgroundRes != 0) {
+            binding.getRoot().setBackgroundResource(backgroundRes);
+        }
+    }
+
+    private void applySavedBackground() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        String background = prefs.getString("backgroundTheme", "seascape");
+        updateHomeBackground(background);
+    }
+
+    private int getBackgroundResource(String background) {
+        switch (background) {
+            case "seascape": return R.drawable.main_seascape_background;
+            case "forest": return R.drawable.main_forest_background;
+            case "desert": return R.drawable.main_desert_background;
+            case "space": return R.drawable.main_space_background;
+            case "sunset": return R.drawable.main_sunset_background;
+            case "ocean": return R.drawable.main_ocean_background;
+            default: return R.drawable.main_seascape_background;
+        }
     }
 
     private void showPlayerId() {
