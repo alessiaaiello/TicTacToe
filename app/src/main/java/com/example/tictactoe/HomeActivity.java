@@ -7,6 +7,10 @@ import android.graphics.BitmapFactory;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tictactoe.databinding.ActivityHomeBinding;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.UUID;
 
 public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
@@ -61,9 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         // Settings Button
         binding.settingsButton.setOnClickListener(v -> {
             playClickSound();
-            Intent intent = new Intent(HomeActivity.this, ProfileSetupActivity.class);
-            intent.putExtra("editMode", true);
-            startActivity(intent);
+            showSettingsMenu();
         });
     }
 
@@ -123,6 +126,99 @@ public class HomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void showSettingsMenu() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_settings_menu, null);
+        builder.setView(dialogView);
+
+        Button editProfileBtn = dialogView.findViewById(R.id.editProfileBtn);
+        Button changeLayoutBtn = dialogView.findViewById(R.id.changeLayoutBtn);
+        Button playerIdBtn = dialogView.findViewById(R.id.playerIdBtn);
+        Button cancelBtn = dialogView.findViewById(R.id.cancelBtn);
+
+        AlertDialog dialog = builder.create();
+
+        editProfileBtn.setOnClickListener(v -> {
+            playClickSound();
+            dialog.dismiss();
+            Intent intent = new Intent(HomeActivity.this, ProfileSetupActivity.class);
+            intent.putExtra("editMode", true);
+            startActivity(intent);
+        });
+
+        changeLayoutBtn.setOnClickListener(v -> {
+            playClickSound();
+            dialog.dismiss();
+            showLayoutOptions();
+        });
+
+        playerIdBtn.setOnClickListener(v -> {
+            playClickSound();
+            dialog.dismiss();
+            showPlayerId();
+        });
+
+        cancelBtn.setOnClickListener(v -> {
+            playClickSound();
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void showLayoutOptions() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        String currentLayout = prefs.getString("gameLayout", "seascape");
+
+        String[] layouts = {"Seascape", "Forest", "Desert", "Space"};
+        String[] layoutValues = {"seascape", "forest", "desert", "space"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Layout");
+        builder.setSingleChoiceItems(layouts, 
+            java.util.Arrays.asList(layoutValues).indexOf(currentLayout), null);
+
+        builder.setPositiveButton("Apply", (dialog, which) -> {
+            int selectedPosition = ((android.widget.ListView) ((android.app.AlertDialog) dialog).getListView()).getCheckedItemPosition();
+            String selectedLayout = layoutValues[selectedPosition];
+            
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("gameLayout", selectedLayout);
+            editor.apply();
+            
+            // Restart activity to apply new layout
+            recreate();
+        });
+
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    private void showPlayerId() {
+        SharedPreferences prefs = getSharedPreferences("TicTacToe", MODE_PRIVATE);
+        String playerId = prefs.getString("playerId", "");
+        
+        // Generate player ID if it doesn't exist
+        if (playerId.isEmpty()) {
+            playerId = "PLAYER-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("playerId", playerId);
+            editor.apply();
+        }
+
+        String playerName = prefs.getString("playerName", "Player");
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Player Information");
+        
+        String message = "Player Name: " + playerName + "\n\nPlayer ID: " + playerId + "\n\nThis ID uniquely identifies your profile in the game.";
+        builder.setMessage(message);
+        
+        builder.setPositiveButton("OK", null);
+        builder.show();
     }
 
     private void playClickSound() {
