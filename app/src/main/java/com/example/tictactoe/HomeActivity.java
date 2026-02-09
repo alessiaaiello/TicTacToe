@@ -72,6 +72,10 @@ public class HomeActivity extends AppCompatActivity {
         String playerName = prefs.getString("playerName", "");
         String photoPath = prefs.getString("playerPhotoPath", "");
         
+        // Debug: log the player name
+        android.util.Log.d("HomeActivity", "Player name: '" + playerName + "'");
+        android.util.Log.d("HomeActivity", "Photo path: '" + photoPath + "'");
+        
         // Add welcome text with player name
         if (!playerName.isEmpty()) {
             welcomeText = new TextView(this);
